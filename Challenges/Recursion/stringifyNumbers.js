@@ -8,7 +8,21 @@
  * as strings.
  */
 
-function stringifyNumbers(obj) {}
+function stringifyNumbers(obj) {
+  const _obj = {};
+
+  for (let key in obj) {
+    if (typeof obj[key] === "number") {
+      _obj[key] = obj[key].toString();
+    } else if (typeof obj[key] === "object" && !Array.isArray(obj[key])) {
+      _obj[key] = stringifyNumbers(obj[key]);
+    } else {
+      _obj[key] = obj[key];
+    }
+  }
+
+  return _obj;
+}
 
 let obj = {
   num: 1,
