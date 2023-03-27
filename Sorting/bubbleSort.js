@@ -22,14 +22,12 @@ function bubbleSort(array, isAscending = true) {
    *
    * After looping through the entire array, we return it (its sorted at the end).
    */
-  for (let i = array.length - 1; i >= 0; i--) {
+  for (let i = array.length - 1; i > 0; i--) {
     for (let j = 0; j < i; j++) {
       if (isAscending) {
         if (array[j] > array[j + 1]) swap(array, j, j + 1);
-        console.log(array);
       } else {
         if (array[j] < array[j + 1]) swap(array, j, j + 1);
-        console.log(array);
       }
     }
   }
