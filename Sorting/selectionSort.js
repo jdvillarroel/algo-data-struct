@@ -25,7 +25,8 @@ function selectionSort(array) {
 
     // Compare minimumfound with current element to determine if a swap is
     // required.
-    if (array[currentMinIdx] < array[ptr]) swap(array, currentMinIdx, ptr);
+    if (currentMinIdx !== ptr && array[currentMinIdx] < array[ptr])
+      swap(array, currentMinIdx, ptr);
   }
   return array;
 }
