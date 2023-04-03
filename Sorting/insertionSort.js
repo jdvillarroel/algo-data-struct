@@ -18,14 +18,48 @@ function insertionSort(array) {
    * sorted elements. We insert the current element into its correct position.
    */
 
-  for (let idx1 = 1; idx1 < array.length - 1; idx1++) {
-    for (let idx2 = idx1; idx2 >= 0; idx2--) {}
+  // for (let idx1 = 1; idx1 < array.length; idx1++) {
+  //   let currentValue = array[idx1];
+
+  //   for (let idx2 = idx1 - 1; idx2 >= 0; idx2--) {
+  //     if (currentValue < array[idx2]) {
+  //       swap(array, array.indexOf(currentValue), idx2);
+  //     } else {
+  //       break;
+  //     }
+  //   }
+  // }
+
+  /**
+   * This is an improvement over the first solution since we are not using
+   * an extra variable to keep track of the current value we are comparing
+   * and there is no need to search for the index of the current value when
+   * swapping variables.
+   */
+  for (let idx1 = 1; idx1 < array.length; idx1++) {
+    for (let idx2 = idx1; idx2 > 0; idx2--) {
+      if (array[idx2] < array[idx2 - 1]) {
+        swap(array, idx2, idx2 - 1);
+      } else {
+        break;
+      }
+    }
   }
-  return;
+  return array;
 }
 
-// [3, -2, 0, 12, 22, 4, 11]
+// [3, -2, 0, 12, 22, 4, 11] -> idx1 = 1
+// [-2, 3, 0, 12, 22, 4, 11] -> idx1 = 2
+// [-2, 0, 3, 12, 22, 4, 11]
+// [-2, 0, 3, 12, 22, 4, 11] -> idx1 = 3
+// [-2, 0, 3, 12, 22, 4, 11] -> idx1 = 4
+// [-2, 0, 3, 12, 22, 4, 11] -> idx1 = 5
+// [-2, 0, 3, 12, 4, 22, 11]
+// [-2, 0, 3, 4, 12, 22, 11]
+// [-2, 0, 3, 4, 12, 22, 11] -> idx1 = 6
+// [-2, 0, 3, 4, 12, 11, 22]
+// [-2, 0, 3, 4, 11, 12, 22]
 
 const testA = [3, -2, 0, 12, 22, 4, 11];
 
-insertionSort();
+insertionSort(testA);
