@@ -4,11 +4,8 @@
  */
 
 function getDigit(num, pos) {
-  let tempNum = num;
-
-  for (let i = 1; i < pos; i++) {
-    tempNum = Math.floor(tempNum / 10);
-  }
+  let div = Math.pow(10, pos);
+  let tempNum = Math.floor(Math.abs(num) / div);
 
   return tempNum % 10;
 }
