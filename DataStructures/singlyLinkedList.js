@@ -77,6 +77,42 @@ class sLinkedList {
 
     return next.value;
   }
+
+  // Remove the first element pf the list.
+  shift() {
+    if (this.length === 0) return undefined;
+
+    if (this.length === 1) {
+      let ret = this.head.value;
+      this.head = null;
+      this.tail = null;
+      this.length = 0;
+      return ret;
+    }
+
+    let tempNode = this.head;
+
+    this.head = this.head.next;
+    tempNode.next = null;
+    this.length--;
+
+    return tempNode.value;
+  }
+
+  // Add element at the beginning of the list.
+  unshift(_value) {
+    if (this.length === 0) {
+      this.push(_value);
+    }
+
+    let newNode = new Node(_value);
+
+    newNode.next = this.head;
+    this.head = newNode;
+    this.length++;
+
+    return this.head.value;
+  }
 }
 
 let list = new sLinkedList();
