@@ -102,7 +102,7 @@ class sLinkedList {
   // Add element at the beginning of the list.
   unshift(_value) {
     if (this.length === 0) {
-      this.push(_value);
+      return this.push(_value);
     }
 
     let newNode = new Node(_value);
@@ -111,13 +111,78 @@ class sLinkedList {
     this.head = newNode;
     this.length++;
 
-    return this.head.value;
+    return this;
+  }
+
+  // Get nth element of the list.
+  get(_idx) {
+    // If list is empty or index is out of bounds return null.
+    if (_idx < 0 || _idx > this.length - 1) return null;
+
+    let counter = 0;
+    let tempNode = this.head;
+
+    while (counter < _idx) {
+      tempNode = tempNode.next;
+      counter++;
+    }
+
+    return tempNode;
+  }
+
+  /**
+   * Set a new value at a specific location in the list. The function will
+   * search for the value. If it's not found return false. If found update
+   * the value and return true.
+   * @param {Number} _value   Value to update node.
+   * @param {Number} _idx     Position of the node to update.
+   */
+  set(_idx, _value) {
+    let node = this.get(_idx);
+
+    if (node) {
+      node.value = _value;
+      return true;
+    }
+
+    return false;
+  }
+
+  // Insert an element at a specific position/location.
+  insert(_idx, _value) {
+    if (_idx === 0) {
+      let node = this.unshift(_value);
+      return node ? true : false;
+    }
+
+    if (_idx === this.length - 1) {
+      let node = this.push(_value);
+      return node ? true : false;
+    }
+
+    let prevNode = this.get(_idx - 1);
+
+    /**
+     * If the get does not return a valid node, it means index is out of bounds.
+     * So, we return false.
+     */
+    if (!prevNode) return false;
+
+    let newNode = new Node(_value);
+
+    // Make previous node to point to the new node and the new node
+    // points to the node pointed previously by the previous node.
+    newNode.next = prevNode.next;
+    prevNode.next = newNode;
+    this.length++;
+
+    return true;
   }
 }
 
 let list = new sLinkedList();
 
-list.push(0);
-list.push(1);
-list.push(2);
-list.push(3);
+list.push("This");
+list.push("is");
+list.push("the");
+list.push("data");
