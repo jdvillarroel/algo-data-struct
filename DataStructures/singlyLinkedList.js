@@ -150,15 +150,9 @@ class sLinkedList {
 
   // Insert an element at a specific position/location.
   insert(_idx, _value) {
-    if (_idx === 0) {
-      let node = this.unshift(_value);
-      return node ? true : false;
-    }
+    if (_idx === 0) return !!this.unshift(_value);
 
-    if (_idx === this.length - 1) {
-      let node = this.push(_value);
-      return node ? true : false;
-    }
+    if (_idx === this.length) return !!this.push(_value);
 
     let prevNode = this.get(_idx - 1);
 
