@@ -172,6 +172,20 @@ class sLinkedList {
 
     return true;
   }
+
+  // Remove an element at a specific position.
+  remove(_idx) {
+    if (_idx < 0 || _idx > this.length - 1) return false;
+    if (_idx === 0) return !!this.shift();
+    if (_idx === this.length - 1) return !!this.pop();
+
+    let prevNode = this.get(_idx - 1);
+    let removed = prevNode.next;
+    prevNode.next = removed.next;
+    this.length--;
+
+    return removed;
+  }
 }
 
 let list = new sLinkedList();
