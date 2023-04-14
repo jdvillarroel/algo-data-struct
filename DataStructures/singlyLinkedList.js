@@ -186,6 +186,50 @@ class sLinkedList {
 
     return removed;
   }
+
+  // Reverse list.
+  reverse() {
+    // If list is empty return false.
+    if (this.length === 0) return false;
+
+    // If list has only one element reversing has no efect.
+    if (this.length === 1) return true;
+
+    // Save the state of the nodes.
+    let behind = this.head;
+    let current = this.head.next;
+    let ahead = current.next;
+
+    // Head becomes new tail. We'll update the next property later.
+    this.tail = this.head;
+
+    /**
+     * While the ahead element is not null, meaning there are elements in the list,
+     * we move forward one element in the list for all our state containers (prev, current, next).
+     */
+    while (ahead) {
+      current.next = behind;
+      behind = current;
+      current = ahead;
+      ahead = current.next;
+    }
+
+    /**
+     * When we reach the end of the list (old tail), we update the tail to point to the
+     * previous element, then update the old tail to the current node which becomes the head.
+     * Lastly, the old tail becomes the head.
+     */
+    current.next = behind;
+    this.head = current;
+    this.tail.next = null;
+
+    // Delete state tracker variables.
+    behind = null;
+    current = null;
+
+    // Return the reversed list.
+    return this;
+  }
 }
 
 let list = new sLinkedList();
