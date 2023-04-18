@@ -98,11 +98,38 @@ class dLinkedList {
   }
 
   // ******************* Shift element from list **************** //
+
+  // ******************* Unshift element from list **************** //
+
+  unshift(_value) {
+    // Create the new node.
+    let newNode = new Node(_value);
+
+    if (this.length === 0) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      // New node points to current head.
+      newNode.next = this.head;
+
+      // Current head points back to new node.
+      this.head.prev = newNode;
+
+      // Set new node as head.
+      this.head = newNode;
+    }
+
+    this.length++;
+
+    return this;
+  }
+
+  // ******************* Unshift element from list **************** //
 }
 
-let dList = new dLinkedList();
+let list = new dLinkedList();
 
-dList.push(1);
-dList.push(2);
-dList.push(3);
-dList.push(4);
+list.push(1);
+list.push(2);
+list.push(3);
+list.push(4);
