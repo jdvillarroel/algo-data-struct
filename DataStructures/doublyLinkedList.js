@@ -125,6 +125,33 @@ class dLinkedList {
   }
 
   // ******************* Unshift element from list **************** //
+
+  // ******************* Get element from list **************** //
+
+  get(_idx, _value) {
+    if (_idx < 0 || _idx > this.length - 1) return null;
+
+    let node = null;
+    let counter = null;
+    let middle = Math.floor(this.length / 2);
+
+    // If index is less than the middle index search from head to middle.
+    // if not, search from tail to middle.
+    if (_idx < middle) {
+      counter = 0;
+      node = this.head;
+
+      while (counter != _idx) {
+        node = node.next;
+        counter++;
+      }
+    } else {
+    }
+
+    return node;
+  }
+
+  // ******************* Get element from list **************** //
 }
 
 let list = new dLinkedList();
