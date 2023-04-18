@@ -44,6 +44,34 @@ class dLinkedList {
   }
 
   // ******************* Push element to list **************** //
+
+  // ******************* Pop element to list **************** //
+
+  pop() {
+    if (this.length === 0) return undefined;
+
+    // Create a temp node to return the node we'll remove.
+    let retNode = this.tail;
+
+    if (this.length === 1) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      let prev = this.tail.prev;
+
+      // Break the link between the tail and previous node.
+      prev.next = null;
+      retNode.prev = null;
+
+      // Update the previous node to become the tail.
+      this.tail = prev;
+    }
+    this.length--;
+
+    return retNode;
+  }
+
+  // ******************* Pop element to list **************** //
 }
 
 let dList = new dLinkedList();
