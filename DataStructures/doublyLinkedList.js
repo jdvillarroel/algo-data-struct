@@ -43,9 +43,9 @@ class dLinkedList {
     return this;
   }
 
-  // ******************* Push element to list **************** //
+  // ******************* Push element from list **************** //
 
-  // ******************* Pop element to list **************** //
+  // ******************* Pop element from list **************** //
 
   pop() {
     if (this.length === 0) return undefined;
@@ -71,7 +71,33 @@ class dLinkedList {
     return retNode;
   }
 
-  // ******************* Pop element to list **************** //
+  // ******************* Pop element from list **************** //
+
+  // ******************* Shift element from list **************** //
+
+  shift() {
+    if (this.length === 0) return undefined;
+
+    let retNode = this.head;
+
+    if (this.length === 1) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      let newHead = this.head.next;
+      retNode.next = null;
+      newHead.prev = null;
+      this.head = newHead;
+    }
+
+    this.length--;
+
+    retNode.next = null;
+
+    return retNode;
+  }
+
+  // ******************* Shift element from list **************** //
 }
 
 let dList = new dLinkedList();
