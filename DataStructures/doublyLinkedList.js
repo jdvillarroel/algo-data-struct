@@ -128,7 +128,7 @@ class dLinkedList {
 
   // ******************* Get element from list **************** //
 
-  get(_idx, _value) {
+  get(_idx) {
     if (_idx < 0 || _idx > this.length - 1) return null;
 
     let node = null;
@@ -146,7 +146,18 @@ class dLinkedList {
         counter++;
       }
     } else {
+      counter = this.length - 1;
+      node = this.tail;
+
+      while (counter != _idx) {
+        node = node.prev;
+        counter--;
+      }
     }
+
+    // // Reset previous and next properties, so I don't return a reference to the entire list.
+    // node.prev = null;
+    // node.next = null;
 
     return node;
   }
