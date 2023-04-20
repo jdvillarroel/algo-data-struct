@@ -172,12 +172,47 @@ class dLinkedList {
     if (node) {
       node.value = _value;
       return true;
-    } else {
-      return false;
     }
+
+    return false;
   }
 
   // ******************* Set element in the list **************** //
+
+  // ******************* Insert element in the list **************** //
+
+  insert(_idx, _value) {
+    if (_idx === 0) return this.unshift(_value);
+    if (_idx === this.length) return this.push(_value);
+
+    // Get the previous node to the one I want to insert.
+    let prevNode = this.get(_idx - 1);
+
+    if (prevNode) {
+      // Create new node.
+      let newNode = new Node(_value);
+
+      // Make the new node to point to the node it is replacing (next to prevNode).
+      newNode.next = prevNode.next;
+
+      // Make the node that newNode is pointing to, to pint back at newNode.
+      prevNode.next.prev = newNode;
+
+      // New node points back to the previous node.
+      newNode.prev = prevNode;
+
+      // Make the previous node to point to the new node.
+      prevNode.next = newNode;
+
+      this.length++;
+
+      return this;
+    }
+
+    return null;
+  }
+
+  // ******************* Insert element in the list **************** //
 }
 
 let list = new dLinkedList();
