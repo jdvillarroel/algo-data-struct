@@ -163,6 +163,21 @@ class dLinkedList {
   }
 
   // ******************* Get element from list **************** //
+
+  // ******************* Set element in the list **************** //
+
+  set(_idx, _value) {
+    let node = this.get(_idx);
+
+    if (node) {
+      node.value = _value;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // ******************* Set element in the list **************** //
 }
 
 let list = new dLinkedList();
