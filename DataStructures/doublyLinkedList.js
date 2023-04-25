@@ -213,6 +213,51 @@ class dLinkedList {
   }
 
   // ******************* Insert element in the list **************** //
+
+  // ******************* Remove element from the list **************** //
+
+  remove(_idx) {
+    if (_idx === 0) return this.shift();
+    if (_idx === this.length - 1) return this.pop();
+
+    // Get element from the list.
+    let node = this.get(_idx);
+
+    // Create prev and next nodes to make the code more readable.
+    let prev = new Node();
+    let next = new Node();
+
+    if (node !== null) {
+      prev = node.prev;
+      next = node.next;
+
+      /**
+       * The previous node needs to point to the next node and the next
+       * point back to the previous, doing that I remove the found node.
+       *
+       * Before returning the removed node, clear the next and previous
+       * properties.
+       */
+
+      // Previous point to next.
+      prev.next = next;
+
+      // Next points to previous
+      next.prev = prev;
+
+      this.length--;
+
+      // Delete the removed node references to the other nodes.
+      node.prev = null;
+      node.next = null;
+
+      return node;
+    }
+
+    return false;
+  }
+
+  // ******************* Remove element from the list **************** //
 }
 
 let list = new dLinkedList();
