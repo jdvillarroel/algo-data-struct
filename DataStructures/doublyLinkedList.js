@@ -258,6 +258,52 @@ class dLinkedList {
   }
 
   // ******************* Remove element from the list **************** //
+
+  // ******************* Reverse the list **************** //
+
+  reverse() {
+    /**
+     * If list is empty there is nothing to reverse. When the list is one element
+     * long reversing has no effect.
+     */
+    if (this.length === 0) return null;
+    if (this.length === 1) return this;
+
+    // Keep a reference to the old head and tail nodes to swap them later.
+    let oldHead = this.head;
+    let oldTail = this.tail;
+    let counter = 0;
+
+    // Set current node to traverse the list.
+    let node = this.head;
+
+    while (counter <= this.length - 1) {
+      // Keep a reference to the previous and next nodes of the current node.
+      let prev = node.prev;
+      let next = node.next;
+
+      // To revert the node I swap the previous and next nodes of current node.
+      node.next = prev;
+      node.prev = next;
+
+      /**
+       * Now that the node is reverted, to move forward I go backwards referent
+       * to the current node. What is forward in the original list is backward
+       * in the reverted list.
+       */
+      node = node.prev;
+
+      counter++;
+    }
+
+    // Update the head and tail.
+    this.head = oldTail;
+    this.tail = oldHead;
+
+    return this;
+  }
+
+  // ******************* Reverse the list **************** //
 }
 
 let list = new dLinkedList();
