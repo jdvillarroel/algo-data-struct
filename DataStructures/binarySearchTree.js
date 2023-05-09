@@ -27,7 +27,9 @@ class BinarySearchTree {
     }
 
     function helper(node) {
-      if (newNode.value <= node.value) {
+      if (newNode.value === node.value) return false;
+
+      if (newNode.value < node.value) {
         // Insert left.
         if (node.left !== null) {
           helper(node.left);
@@ -50,6 +52,36 @@ class BinarySearchTree {
   }
 
   // **************** INSERT NODE TO THE BINARY SEARCH TREE *************** //
+
+  // **************** SEARCH VALUE IN BINARY SEARCH TREE *************** //
+
+  search(_value) {
+    if (this.root === null) return null;
+
+    let retVal = false;
+
+    function helper(_node) {
+      // If node is null, the value is not in the BST.
+      if (_node === null) return null;
+
+      if (_value === _node.value) {
+        retVal = true;
+        return;
+      } else if (_value < _node.value) {
+        // search to the left.
+        helper(_node.left);
+      } else {
+        // Search to the right.
+        helper(_node.right);
+      }
+    }
+
+    helper(this.root);
+
+    return retVal;
+  }
+
+  // **************** SEARCH VALUE IN BINARY SEARCH TREE *************** //
 }
 
 const l = [4, 7, 0, 1, 5];
