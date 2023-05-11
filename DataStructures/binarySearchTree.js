@@ -55,8 +55,8 @@ class BinarySearchTree {
 
   // **************** SEARCH VALUE IN BINARY SEARCH TREE *************** //
 
-  search(_value) {
-    if (this.root === null) return null;
+  contains(_value) {
+    if (this.root === null) return false;
 
     let retVal = false;
 
@@ -82,6 +82,44 @@ class BinarySearchTree {
   }
 
   // **************** SEARCH VALUE IN BINARY SEARCH TREE *************** //
+
+  // **************** BREATH-FIRST-SEARCH BINARY SEARCH TREE *************** //
+
+  /**
+   * It uses an array as a queue data structure. Performance is not a concern, I am
+   * testing functionality. A better implementation requires a proper queue data
+   * structure.
+   *
+   * @returns A list (array) of the node's value found at each level of the BST.
+   */
+  bfs() {
+    if (!this.root) return [];
+
+    // Create queue. I'll use an array as queue, not worried about performance now.
+    const qNodes = [];
+    const visitedNodes = [];
+
+    // Add root to start traversing the tree.
+    qNodes.push(this.root);
+
+    // Iterate while there is something in the queue.
+    while (qNodes.length !== 0) {
+      if (qNodes[0].left) {
+        qNodes.push(qNode[0].left);
+      }
+
+      if (qNodes[0].right) {
+        qNodes.push(qNodes[0].right);
+      }
+
+      // Remove node from queue and add it to the visited nodes.
+      visitedNodes.push(qNodes.shift().value);
+    }
+
+    return visitedNodes;
+  }
+
+  // **************** BREATH-FIRST-SEARCH BINARY SEARCH TREE *************** //
 }
 
 const l = [4, 7, 0, 1, 5];
