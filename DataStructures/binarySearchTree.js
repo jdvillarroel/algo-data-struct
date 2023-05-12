@@ -83,7 +83,7 @@ class BinarySearchTree {
 
   // **************** SEARCH VALUE IN BINARY SEARCH TREE *************** //
 
-  // **************** BREATH-FIRST-SEARCH BINARY SEARCH TREE *************** //
+  // **************** BREADTH-FIRST-SEARCH BINARY SEARCH TREE *************** //
 
   /**
    * It uses an array as a queue data structure. Performance is not a concern, I am
@@ -105,7 +105,7 @@ class BinarySearchTree {
     // Iterate while there is something in the queue.
     while (qNodes.length !== 0) {
       if (qNodes[0].left) {
-        qNodes.push(qNode[0].left);
+        qNodes.push(qNodes[0].left);
       }
 
       if (qNodes[0].right) {
@@ -119,7 +119,40 @@ class BinarySearchTree {
     return visitedNodes;
   }
 
-  // **************** BREATH-FIRST-SEARCH BINARY SEARCH TREE *************** //
+  // **************** BREADTH-FIRST-SEARCH BINARY SEARCH TREE *************** //
+
+  // **************** DEPTH-FIRST-SEARCH BINARY SEARCH TREE *************** //
+
+  /**
+   *
+   *
+   * @returns A list (array) of all node values in the BST.
+   */
+  dfs() {
+    if (!this.root) return [];
+
+    // Variable store all the nodes values.
+    const visitedNodes = [];
+
+    function helper(_node) {
+      // Add the current node value to the list.
+      visitedNodes.push(_node.value);
+
+      if (_node.left) {
+        helper(_node.left);
+      }
+
+      if (_node.right) {
+        helper(_node.right);
+      }
+    }
+
+    helper(this.root);
+
+    return visitedNodes;
+  }
+
+  // **************** DEPTH-FIRST-SEARCH BINARY SEARCH TREE *************** //
 }
 
 const l = [4, 7, 0, 1, 5];
