@@ -128,7 +128,7 @@ class BinarySearchTree {
    *
    * @returns A list (array) of all node values in the BST.
    */
-  dfs() {
+  dfsPreOrder() {
     if (!this.root) return [];
 
     // Variable store all the nodes values.
@@ -153,9 +153,75 @@ class BinarySearchTree {
   }
 
   // **************** DEPTH-FIRST-SEARCH BINARY SEARCH TREE *************** //
+
+  // **************** DEPTH-FIRST-SEARCH POST-ORDER BINARY SEARCH TREE *************** //
+
+  /**
+   *
+   *
+   * @returns A list (array) of all node values in the BST.
+   */
+  dfsPostOrder() {
+    if (!this.root) return [];
+
+    // Variable store all the nodes values.
+    const visitedNodes = [];
+
+    function helper(_node) {
+      if (_node.left) {
+        helper(_node.left);
+      }
+
+      if (_node.right) {
+        helper(_node.right);
+      }
+
+      // Add the current node value to the list.
+      visitedNodes.push(_node.value);
+    }
+
+    helper(this.root);
+
+    return visitedNodes;
+  }
+
+  // **************** DEPTH-FIRST-SEARCH POST-ORDER BINARY SEARCH TREE *************** //
+
+  // **************** DEPTH-FIRST-SEARCH IN-ORDER BINARY SEARCH TREE *************** //
+
+  /**
+   *
+   *
+   * @returns A list (array) of all node values in the BST.
+   */
+  dfsInOrder() {
+    if (!this.root) return [];
+
+    // Variable store all the nodes values.
+    const visitedNodes = [];
+
+    function helper(_node) {
+      if (_node.left) {
+        helper(_node.left);
+      }
+
+      // Add the current node value to the list.
+      visitedNodes.push(_node.value);
+
+      if (_node.right) {
+        helper(_node.right);
+      }
+    }
+
+    helper(this.root);
+
+    return visitedNodes;
+  }
+
+  // **************** DEPTH-FIRST-SEARCH IN-ORDER BINARY SEARCH TREE *************** //
 }
 
-const l = [4, 7, 0, 1, 5];
+const l = [10, 6, 15, 3, 8, 20];
 
 const bst = new BinarySearchTree();
 
