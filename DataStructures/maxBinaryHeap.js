@@ -50,6 +50,46 @@ class maxBinaryHeap {
 
     // Save the element to bubble down.
     let element = this.values[0];
+
+    // Remove element from the list.
+    this.values.pop();
+
+    // Variables to hold the nodes info.
+    let idx = 0;
+    let length = this.values.length;
+    let leftIdx, rightIdx, left, right;
+    let swap = idx;
+
+    do {
+      // Calculate the indexes for children.
+      leftIdx = 2 * idx + 1;
+      rightIdx = 2 * idx + 2;
+      left = this.values[leftIdx];
+      right = this.values[rightIdx];
+
+      // Check if left child is greater and store its index to swap later.
+      if (leftIdx < length) {
+        if (left > element) {
+          swap = leftIdx;
+        }
+      }
+
+      // Check if right child is greater and store its index to swap later.
+      if (rightIdx < length) {
+        if (right > element && right > left) {
+          swap = rightIdx;
+        }
+      }
+
+      // Swap and update variables.
+      if (swap !== 0) {
+        this.values[idx] = this.values[swap];
+        this.values[swap] = element;
+
+        idx = swap;
+        swap = 0;
+      }
+    } while (leftIdx < length && rightIdx < length);
   }
 }
 
