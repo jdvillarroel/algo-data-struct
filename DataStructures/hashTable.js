@@ -23,6 +23,12 @@ class HashTable {
     return total;
   }
 
+  /**
+   * Save the key value pair into the internal array.
+   * @param {String} key
+   * @param {any} value
+   * @returns
+   */
   set(key, value) {
     // First I need to hash the key to obtain an index to store in the array.
     let hashIdx = this._hash(key);
@@ -42,6 +48,12 @@ class HashTable {
     }
   }
 
+  /**
+   * Retrieves the value corresponding to the key entered.
+   * @param {String} key
+   * @returns Undefined if the key is not in the hash table. The value if the key
+   * is found in the table.
+   */
   get(key) {
     // Hash the key to retrieve the index where the value is stored in the hash table.
     const hashIdx = this._hash(key);
@@ -62,6 +74,49 @@ class HashTable {
 
     return value;
   }
+
+  /**
+   * Loops over the hash table (array) and add all the keys into an
+   * array. Since all the keys are unique there is no need to check for
+   * duplicates.
+   * @returns An array containing all the keys in the hash table.
+   */
+  keys() {
+    if (this.keyMap.length === 0) return [];
+
+    let keys = [];
+
+    this.keyMap.forEach((tablePosition) => {
+      tablePosition.forEach((pair) => {
+        if (pair) keys.push(pair[0]);
+      });
+    });
+
+    return keys;
+  }
+
+  /**
+   * Loops over each sub-array of each element of the main array. The initial
+   * values array is converted to a set to remove duplicate values. Then, is
+   * converted back to an array to be returned as the result.
+   * @returns An array containing unique values of all the key-value pairs
+   * contained in the hash table.
+   */
+  values() {
+    if (this.keyMap.length === 0) return [];
+
+    let values = [];
+
+    this.keyMap.forEach((tablePosition) => {
+      tablePosition.forEach((pair) => {
+        if (pair) values.push(pair[1]);
+      });
+    });
+
+    const valuesSet = Set(values);
+
+    return [...valuesSet];
+  }
 }
 
 // EXAMPLE
@@ -73,6 +128,9 @@ const list = [
   ["five", 5],
   ["six", 6],
   ["seven", 7],
+  ["nine", 9],
+  ["ten", 10],
+  ["eigth", 8],
 ];
 
 const ht = new HashTable(10);
