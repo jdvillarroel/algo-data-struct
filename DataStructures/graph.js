@@ -99,24 +99,81 @@ class Graph {
 
     return false;
   }
+
+  /**
+   * This function implements depth first traversal of the graph recursively.
+   * @param {String} vertex It can be called with any of the vertex in the graph
+   * as the first vertex to visit.
+   * @returns A lsit of all the vertex visited in the graph which should match
+   * all vertex in the graph.
+   */
+  rDFT(vertex) {
+    /**
+     * Create a copy of the adjacency list since we would not be able to call it inside
+     * the recursive function. Inside the recursive function the "this" does not refer
+     * to the class itself anymore.
+     */
+    let adjacencyList = this.adjacencyList;
+
+    // Create an array to store all visited vertex.
+    const visited = {};
+
+    // Results array to return.
+    const results = [];
+
+    // Define the recursive helper function that will traverse the graph.
+    function rHelper(_vertex) {
+      // Base case of the recursive function.
+      if (!_vertex) return null;
+
+      // Add the current vertex to the visited vertex map and to the results array.
+      results.push(_vertex);
+      visited[_vertex] = true;
+
+      // Visit the vertex linked to the current vertex.
+      adjacencyList[_vertex].forEach((v) => {
+        // Verify that the node has not been visited before.
+        if (!visited[v]) {
+          rHelper(v);
+        }
+      });
+    }
+    rHelper(vertex);
+
+    return results;
+  }
 }
 
 const g = new Graph();
 
-let vertexList = [
-  "Caracas",
-  "Bocono",
-  "Pto La Cruz",
-  "Merida",
-  "Cumana",
-  "Valencia",
-];
+// let vertexList = [
+//   "Caracas",
+//   "Bocono",
+//   "Pto La Cruz",
+//   "Merida",
+//   "Cumana",
+//   "Valencia",
+// ];
+
+// vertexList.forEach((vertex) => {
+//   g.addVertex(vertex);
+// });
+
+// g.addEdge("Caracas", "Pto La Cruz");
+// g.addEdge("Caracas", "Merida");
+// g.addEdge("Caracas", "Valencia");
+// g.addEdge("Pto La Cruz", "Cumana");
+
+const vertexList = ["A", "B", "C", "D", "E", "F"];
 
 vertexList.forEach((vertex) => {
   g.addVertex(vertex);
 });
 
-g.addEdge("Caracas", "Pto La Cruz");
-g.addEdge("Caracas", "Merida");
-g.addEdge("Caracas", "Valencia");
-g.addEdge("Pto La Cruz", "Cumana");
+g.addEdge("A", "B");
+g.addEdge("A", "C");
+g.addEdge("B", "D");
+g.addEdge("C", "E");
+g.addEdge("D", "E");
+g.addEdge("D", "F");
+g.addEdge("E", "F");
