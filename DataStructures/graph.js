@@ -143,6 +143,12 @@ class Graph {
     return results;
   }
 
+  /**
+   * This is the iterative version of the depth first traversal of the graph. To keep track of the
+   * vertex we need to visit, we use a stack data structure (LIFO).
+   * @param {any} vertex
+   * @returns A list of all vertex in the order they were visited.
+   */
   DFT(vertex) {
     // Create the list of visited vertex to return and the map for the nodes that were visited.
     let results = [];
@@ -152,7 +158,8 @@ class Graph {
 
     /**
      * Create a stack data structure to keep track of the vertex we need to visit. We'll use an
-     * array for simplicity. We'll push to the array and pop from the array.
+     * array for simplicity. We'll push to the array and pop from the array. We need to visit the
+     * vertex in the reverse order they were added (LIFO)
      */
     const stack = [];
 
@@ -175,6 +182,52 @@ class Graph {
         // Add all the edges of the current vertex to the stack.
         this.adjacencyList[currentVertex].forEach((v) => {
           stack.push(v);
+        });
+      }
+    }
+
+    return results;
+  }
+
+  /**
+   * Implementation of the breadth first traversal of the graph. The logic is pretty much the same
+   * as the DFT but insted, we use a queue to keep track of the vertex we need to visit (FIFO).
+   * @param {any} vertex
+   * @returns A list of the vertex in the order they were visited.
+   */
+  BFT(vertex) {
+    // Create the list of visited vertex to return and the map for the nodes that were visited.
+    let results = [];
+    const visited = {};
+
+    let currentVertex;
+
+    /**
+     * Create a queue data structure to keep track of the vertex we need to visit. We'll use an
+     * array for simplicity. We'll push to the array and shift from the array. We need to visit
+     * the vertex in the order they were added (FIFO).
+     */
+    const queue = [];
+
+    /**
+     * Add the first vertex to the queue. Then every edge that vertex has will be added to the queue.
+     * After, we'll remove vertex from the queue and repeat that process until the queue is empty.
+     * If the vertex was already visited it will not be considered.
+     */
+    queue.push(vertex);
+
+    while (queue.length > 0) {
+      // Get the vertex from the queue.
+      currentVertex = queue.shift();
+
+      // Check if the vertex was visited previously. If not, we'll process the vertex.
+      if (!visited[currentVertex]) {
+        visited[currentVertex] = true;
+        results.push(currentVertex);
+
+        // Add all the edges of the current vertex to the queue.
+        this.adjacencyList[currentVertex].forEach((v) => {
+          if (!visited[v]) queue.push(v);
         });
       }
     }
