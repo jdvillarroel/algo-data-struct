@@ -142,6 +142,45 @@ class Graph {
 
     return results;
   }
+
+  DFT(vertex) {
+    // Create the list of visited vertex to return and the map for the nodes that were visited.
+    let results = [];
+    const visited = {};
+
+    let currentVertex;
+
+    /**
+     * Create a stack data structure to keep track of the vertex we need to visit. We'll use an
+     * array for simplicity. We'll push to the array and pop from the array.
+     */
+    const stack = [];
+
+    /**
+     * Add the first vertex to the stack. Then every edge that vertex has will be added to the stack.
+     * After, we'll remove vertex from the stack and repeat that process until the stack is empty.
+     * If the vertex was already visited it will not be considered.
+     */
+    stack.push(vertex);
+
+    while (stack.length > 0) {
+      // Get the vertex from the stack.
+      currentVertex = stack.pop();
+
+      // Check if the vertex was visited previously. If not, we'll process the vertex.
+      if (!visited[currentVertex]) {
+        visited[currentVertex] = true;
+        results.push(currentVertex);
+
+        // Add all the edges of the current vertex to the stack.
+        this.adjacencyList[currentVertex].forEach((v) => {
+          stack.push(v);
+        });
+      }
+    }
+
+    return results;
+  }
 }
 
 const g = new Graph();
