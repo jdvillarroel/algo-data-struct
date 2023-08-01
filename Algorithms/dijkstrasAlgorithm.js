@@ -376,6 +376,9 @@ class WeightedGraph {
      */
     const distances = {};
 
+    // Keep track of visited vertices.
+    const visited = {};
+
     /**
      * Add every vertex in the graph to the distances object. Every distance will be
      * initialized as infinity except for the starting vertex.
@@ -392,9 +395,10 @@ class WeightedGraph {
      */
     const pQ = new PriorityQueue();
 
-    vertices.forEach((vertex) => {
-      pQ.enqueue({ value: vertex, priority: distances[vertex] });
-    });
+    // vertices.forEach((vertex) => {
+    //   pQ.enqueue({ value: vertex, priority: distances[vertex] });
+    // });
+    pQ.enqueue({ value: start, priority: 0 });
 
     /**
      * Create an object to track the previous shortest vertex taken to get to a
@@ -409,30 +413,66 @@ class WeightedGraph {
     // Keep track of the current vertex.
     let smallest;
 
+    // Hold the current distance to vertex.
+    let currentDistanceToVertex;
+
     /**
      * We'll start looping as long as there is something in the proprity queue.
      */
     while (pQ.queue.length) {
       smallest = pQ.dequeue();
 
-      // If the current vertex is equal to the end, we are done. TO DO later!!!!!!!!!!!!
-      if (smallest.value === end) {
-        // Build path to return
-      }
+      if (!visited[smallest.value]) {
+        visited[smallest.value] = true;
 
-      /**
-       * Loop over each edge in the adjacency list for the current vertex. If the weight
-       * is lower than what is stored in the distances object, we update the distance
-       * in the distances object.
-       */
-      this.adjacencyList[smallest.value].forEach((vertex) => {
-        if (distances[vertex.node] > vertex.weight) {
-          distances[vertex.node] = vertex.weight;
-          previous[vertex.node] = smallest.value;
-          pQ.enqueue({ value: vertex.node, priority: vertex.weight });
+        // If the current vertex is equal to the end, we are done. TO DO later!!!!!!!!!!!!
+        if (smallest.value === end) {
+          // Build path to return
+          let shortestPath = [];
+          let node = smallest.value;
+          while (node) {
+            shortestPath.push(node);
+            node = previous[node];
+          }
+
+          return shortestPath;
         }
-      });
+
+        /**
+         * Loop over each edge in the adjacency list for the current vertex. If the weight
+         * is lower than what is stored in the distances object, we update the distance
+         * in the distances object.
+         */
+        for (let vertex of this.adjacencyList[smallest.value]) {
+          // If the vertex was visited before, we ignore it.
+          if (!visited[vertex.node]) {
+            // Calculate the distance to that vertex.
+            currentDistanceToVertex = vertex.weight + smallest.priority;
+
+            /**
+             * If the calculated distance is smaller than the current known distance to that vertex,
+             * we update the distances structure with the new value.
+             */
+            if (currentDistanceToVertex < distances[vertex.node]) {
+              distances[vertex.node] = currentDistanceToVertex;
+
+              // Update the previous node with the new vertex that has shortest distance.
+              previous[vertex.node] = smallest.value;
+
+              // Add the vertex to the priority queue.
+              pQ.enqueue({
+                value: vertex.node,
+                priority: currentDistanceToVertex,
+              });
+            }
+          }
+        }
+      }
     }
+    // Just for testing.
+    console.log(visited);
+    console.log(distances);
+    console.log(previous);
   }
 }
 // ******************************************************************************* //
