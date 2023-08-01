@@ -435,7 +435,7 @@ class WeightedGraph {
             node = previous[node];
           }
 
-          return shortestPath;
+          return shortestPath.reverse();
         }
 
         /**
